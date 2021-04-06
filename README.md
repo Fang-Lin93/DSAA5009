@@ -1,8 +1,8 @@
-# DSAA5009
+# DSAA5009 midterm project
 
 These codes aim to reproduce the project results.
 The reproducibility may not be perfect, but with minor
-differences. see 
+differences. see [Reproducibility](https://pytorch.org/docs/stable/notes/randomness.html)
 
 
 

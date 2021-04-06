@@ -1,5 +1,5 @@
 
-import sys
+import sys, os
 import torch
 from time import time
 from loguru import logger
@@ -146,6 +146,8 @@ class ForecastModel(nn.Module):
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
     def save_model(self):
+        if not os.path.exists('models_dict'):
+            os.mkdir('models_dict')
         torch.save(self.state_dict(), f'models_dict/{self.tag}_model')
 
     def load_model(self):

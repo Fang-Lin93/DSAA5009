@@ -1,4 +1,5 @@
 import pickle
+import os
 from data_processing import FamilyData, NonElderlyData, rescale_bins
 from models import ForecastModel
 
@@ -29,6 +30,9 @@ def forecast(model, tag: str, ahead: int):
     """
     start: density of 2006
     """
+    if not os.path.exists('results'):
+        os.mkdir('results')
+
     res = []
     start = None
     if tag == 'fam':
@@ -41,6 +45,7 @@ def forecast(model, tag: str, ahead: int):
         pd_.to_csv(f'results/{tag}_{2013 + i_}.csv')
         res.append(pd_)
 
+
     with open(f'results/{tag}_pred_dens.pickle', 'wb') as file:
         pickle.dump(pred_dens, file)
 
@@ -52,9 +57,7 @@ def forecast(model, tag: str, ahead: int):
 
 if __name__ == '__main__':
     train()
-    # F_model.save_model()
-    # NP_model.save_model()
-    # F_model.load_model()
-    # NP_model.load_model()
+    F_model.save_model()
+    NP_model.save_model()
     forecast(F_model, tag='fam', ahead=19)
     forecast(NP_model, tag='pp', ahead=19)
